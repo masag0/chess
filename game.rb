@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'display'
+require 'colorize'
 
 class Game
 
@@ -14,7 +15,7 @@ class Game
   end
 
   def play
-
+    system('clear')
     while true
       render_loop
     end
@@ -22,27 +23,32 @@ class Game
   end
 
   def render_loop
-    system("clear")
+    begin
+      print "Select Piece"
 
-    puts "-----------------------------"
-    puts "hi"
-    from = gets.chomp
-    system("clear")
-    @display.render
-    puts "hi"
-    to = gets.chomp
-    @board.move_piece(from, to)
-    system("clear")
-    @display.render
+      from = @display.render
+      print "Select Move"
+
+      to = @display.render
+
+      if !@board[from].is_a?(NullPiece) && @board[from].valid_moves.include?(to)
+        @board.move_piece(from, to)
+      else
+        raise ArgumentError.new("INVALID MOVE".colorize(:red))
+      end
+    rescue ArgumentError => e
+      puts e.message
+      retry
+    end
   end
 
 
   private
 
-  def notify_players
-    puts "Enter move: x,y"
-    get_input
-  end
+  # def notify_players
+  #   puts "Enter move: x,y"
+  #   get_input
+  # end
 
   def swap_turn!
 
@@ -71,10 +77,10 @@ if __FILE__ == $0
   # game.board.move_piece([6,4], [4,4])
   # game.play
   # p game.board[[4,4]].moves
-
-
-  game.board.move_piece([0,4], [4,4])
-  p game.board[[4,4]].valid_moves
-  game.board.move_piece([6,4], [4,4])
+  #
+  #
+  # game.board.move_piece([0,4], [4,4])
+  # p game.board[[4,4]].valid_moves
+  # game.board.move_piece([6,4], [4,4])
   game.play
 end

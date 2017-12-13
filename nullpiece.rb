@@ -30,6 +30,10 @@ class NullPiece < Piece
     []
   end
 
+  def inspect
+    ""
+  end
+
   private
   def move_into_check(to_pos)
 

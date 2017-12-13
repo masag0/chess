@@ -38,7 +38,7 @@ class Piece
     result = []
     total.each do |el|
 
-      result << el if !@board[el].is_a?(NullPiece) && !move_into_check?(el)
+      result << el if @board[el].color != color && !move_into_check?(el)
 
     end
 
@@ -47,16 +47,25 @@ class Piece
 
 
   def move_into_check?(to_pos)
-    # fake_grid = @board.deep_dup(board.grid)
-    # fake = Board.new
-    # fake.grid = fake_grid
-    #
-    # fake.
-    old_pos = pos
-    board.move_piece(old_pos, to_pos)
-    bool = board.in_check?(color) #checks if player is in check
-    board.move_piece(to_pos, old_pos)
-    return bool
+    if @board[to_pos].is_a?(NullPiece)
+      old_pos = pos
+      board.move_piece(old_pos, to_pos)
+      bool = board.in_check?(color) #checks if player is in check
+      board.move_piece(to_pos, old_pos)
+      return bool
+    else
+      old_pos = pos
+      attacked_piece = board[to_pos].dup
+      board.move_piece(old_pos, to_pos)
+      bool = board.in_check?(color)
+      board.move_piece(to_pos, old_pos)
+      board[to_pos] = attacked_piece
+      return bool
+    end
+  end
+
+  def inspect
+    "#{color} #{self.class}"
   end
 
 

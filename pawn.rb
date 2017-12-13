@@ -39,14 +39,14 @@ class Pawn < Piece
     if forward_dir == "down"
       if at_start_row?
         result << [pos[0]+1,pos[1]]  if in_bounds?([pos[0]+1,pos[1]]) && board[[pos[0]+1,pos[1]]].is_a?(NullPiece)
-        result << [pos[0]+2,pos[1]]  if in_bounds?([pos[0]+2,pos[1]]) && board[[pos[0]+2,pos[1]]].is_a?(NullPiece)
+        result << [pos[0]+2,pos[1]]  if in_bounds?([pos[0]+2,pos[1]]) && board[[pos[0]+2,pos[1]]].is_a?(NullPiece) && board[[pos[0]+1,pos[1]]].is_a?(NullPiece)
       else
         result << [pos[0]+1,pos[1]]  if in_bounds?([pos[0]+1,pos[1]]) && board[[pos[0]+1,pos[1]]].is_a?(NullPiece)
       end
     else
       if at_start_row?
         result << [pos[0]-1,pos[1]] if in_bounds?([pos[0]-1,pos[1]]) && board[[pos[0]-1,pos[1]]].is_a?(NullPiece)
-        result << [pos[0]-2,pos[1]] if in_bounds?([pos[0]-2,pos[1]]) && board[[pos[0]-2,pos[1]]].is_a?(NullPiece)
+        result << [pos[0]-2,pos[1]] if in_bounds?([pos[0]-2,pos[1]]) && board[[pos[0]-2,pos[1]]].is_a?(NullPiece) && board[[pos[0]-1,pos[1]]].is_a?(NullPiece)
       else
         result << [pos[0]-1,pos[1]] if in_bounds?([pos[0]-1,pos[1]]) && board[[pos[0]-1,pos[1]]].is_a?(NullPiece)
       end
@@ -57,11 +57,11 @@ class Pawn < Piece
   def side_attacks
     result = []
     if forward_dir == "down"
-      result << [pos[0]+1,pos[1]+1] if in_bounds?([pos[0]+1,pos[1]+1]) && self.color != board[[pos[0]+1,pos[1]+1]] && !board[[pos[0]+1,pos[1]+1]].is_a?(NullPiece)
-      result << [pos[0]+1,pos[1]-1] if in_bounds?([pos[0]+1,pos[1]-1]) && self.color != board[[pos[0]+1,pos[1]-1]] && !board[[pos[0]+1,pos[1]-1]].is_a?(NullPiece)
+      result << [pos[0]+1,pos[1]+1] if !board[[pos[0]+1,pos[1]+1]].is_a?(NullPiece) && in_bounds?([pos[0]+1,pos[1]+1]) && self.color != board[[pos[0]+1,pos[1]+1]].color
+      result << [pos[0]+1,pos[1]-1] if !board[[pos[0]+1,pos[1]-1]].is_a?(NullPiece) && in_bounds?([pos[0]+1,pos[1]-1]) && self.color != board[[pos[0]+1,pos[1]-1]].color
     else
-      result << [pos[0]-1,pos[1]+1] if in_bounds?([pos[0]-1,pos[1]+1]) && self.color != board[[pos[0]-1,pos[1]+1]] && !board[[pos[0]-1,pos[1]+1]].is_a?(NullPiece)
-      result << [pos[0]-1,pos[1]-1] if in_bounds?([pos[0]-1,pos[1]-1]) && self.color != board[[pos[0]-1,pos[1]-1]] && !board[[pos[0]-1,pos[1]-1]].is_a?(NullPiece)
+      result << [pos[0]-1,pos[1]+1] if !board[[pos[0]-1,pos[1]+1]].is_a?(NullPiece) && in_bounds?([pos[0]-1,pos[1]+1]) && self.color != board[[pos[0]-1,pos[1]+1]].color
+      result << [pos[0]-1,pos[1]-1] if !board[[pos[0]-1,pos[1]-1]].is_a?(NullPiece) && in_bounds?([pos[0]-1,pos[1]-1]) && self.color != board[[pos[0]-1,pos[1]-1]].color
     end
     result
   end

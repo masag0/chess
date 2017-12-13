@@ -5,17 +5,19 @@ module Stepable
 
   def moves
     case direction
+    when "straight"
+      straight
     when "knight"
-      knight(pos)
+      knight
     when "both"
-      diagonal(pos) + straight(pos)
+      diagonal + straight
     end
   end
 
 
-  protected
+  # protected
 
-  def diagonal(pos)
+  def diagonal
     result = []
     x = pos[0]
     y = pos[1]
@@ -25,11 +27,12 @@ module Stepable
     result << [x+1, y-1] if in_bounds?([x+1, y-1]) && self.color != board[[x+1, y-1]].color
     result << [x-1, y+1] if in_bounds?([x-1, y+1]) && self.color != board[[x-1, y+1]].color
 
-    result.delete(pos)
+    # result.delete(pos)
     result
   end
 
-  def straight(pos)
+  def straight
+
     result = []
     x = pos[0]
     y = pos[1]
@@ -39,11 +42,11 @@ module Stepable
     result << [x, y-1] if in_bounds?([x, y-1]) && self.color != board[[x, y-1]].color
     result << [x, y+1] if in_bounds?([x, y+1]) && self.color != board[[x, y+1]].color
 
-    result.delete(pos)
+    # result.delete(pos)
     result
   end
 
-  def knight(pos)
+  def knight
     result = []
     x = pos[0]
     y = pos[1]

@@ -10,17 +10,17 @@ module Slideable
     result = []
     case direction
     when "diagonal"
-      result = diagonal(pos)
+      result = diagonal
     when "straight"
-      result = straight(pos)
+      result = straight
     when "both"
-      result = diagonal(pos) + straight(pos)
+      result = diagonal + straight
     end
   end
 
-  protected
+  # protected
 
-  def diagonal(pos)
+  def diagonal
     result = []
     x = pos[0]
     y = pos[1]
@@ -48,8 +48,7 @@ module Slideable
     result
   end
 
-  def straight(pos)
-
+  def straight
     result = []
     x = pos[0]
     y = pos[1]
@@ -78,11 +77,11 @@ module Slideable
     result.delete(pos)
     result
   end
-
-  def check_collision(moves)
-    moves.each do |pos|
-
-    end
-  end
+  #
+  # def check_collision(moves)
+  #   moves.each do |pos|
+  #
+  #   end
+  # end
 
 end

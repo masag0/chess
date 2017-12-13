@@ -34,17 +34,25 @@ MOVES = {
 
 class Cursor
 
-  attr_reader :cursor_pos, :board
+  attr_accessor :cursor_pos, :board, :enter
 
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @enter = false
   end
 
   def get_input #returns a position
 
     key = KEYMAP[read_char]
-    handle_key(key)
+    if key == :return || key == :space
+      @enter = true
+    else
+      @enter = false
+    end
+
+    @cursor_pos = handle_key(key) #if key == :space || key == :return
+
   end
 
   private
@@ -79,7 +87,7 @@ class Cursor
   end
 
   def handle_key(key)
-    
+
     case key
     when :return, :space
       return @cursor_pos
@@ -98,12 +106,10 @@ class Cursor
     if !board.in_bounds?([x,y])
       puts "Out of bounds input."
       get_input
+    else
+      @cursor_pos = [x,y]
     end
 
-    @cursor_pos[0] += MOVES[diff][0]
-    @cursor_pos[1] += MOVES[diff][1]
-
-    @cursor_pos
   end
 
 end
