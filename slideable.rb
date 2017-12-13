@@ -49,7 +49,7 @@ module Slideable
   end
 
   def straight(pos)
-    
+
     result = []
     x = pos[0]
     y = pos[1]

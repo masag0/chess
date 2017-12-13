@@ -14,6 +14,7 @@ def render
     arr.each_with_index do |piece, y|
 
       if @cursor.cursor_pos == [x,y]
+<<<<<<< HEAD
         if piece.color == 'black'
           print piece.to_s.colorize(:green).colorize( :background => :red)
         else
@@ -64,6 +65,11 @@ def render
           end
 
         end
+=======
+        print piece.to_s.colorize(:red)
+      else
+        print piece.to_s.colorize(:green)
+>>>>>>> 52bd7d43671c70ea469ec6dfbc9addd089aaffb2
       end
     end
     puts ""
